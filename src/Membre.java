@@ -6,6 +6,13 @@ public class Membre {
     private LocalDate adhesionDate;
 
     // Constructeur
+     public Membre(String nom, String prenom, String email, LocalDate adhesionDate) {
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.adhesionDate = adhesionDate;
+    }
+
     public Membre(int id, String nom, String prenom, String email, LocalDate adhesionDate) {
         this.id = id;
         this.nom = nom;

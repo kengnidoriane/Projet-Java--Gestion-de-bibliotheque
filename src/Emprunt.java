@@ -1,4 +1,4 @@
-import java.time.LocalDate;
+import java.time.*;
 public class Emprunt {
     private int idEmprunt;
     private int membreId;
@@ -8,6 +8,13 @@ public class Emprunt {
     private LocalDate dateRetourEffective;
 
     // Constructeur
+    public Emprunt(int membreId, int livreId, LocalDate dateEmprunt, LocalDate dateRetourPrevue) {
+        this.membreId = membreId;
+        this.livreId = livreId;
+        this.dateEmprunt = dateEmprunt;
+        this.dateRetourPrevue = dateRetourPrevue;
+    }
+
     public Emprunt(int idEmprunt, int membreId, int livreId, LocalDate dateEmprunt, LocalDate dateRetourPrevue) {
         this.idEmprunt = idEmprunt;
         this.membreId = membreId;

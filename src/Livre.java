@@ -6,6 +6,13 @@ public class Livre {
     private int nombreExemplaires;
 
     // Constructeur
+     public Livre(String titre, String auteur, String categorie, int nombreExemplaires) {
+        this.titre = titre;
+        this.auteur = auteur;
+        this.categorie = categorie;
+        this.nombreExemplaires = nombreExemplaires;
+    }
+
     public Livre(int id, String titre, String auteur, String categorie, int nombreExemplaires) {
         this.id = id;
         this.titre = titre;
