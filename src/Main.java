@@ -18,7 +18,7 @@ public class Main {
 
         while (true) {
             System.out.println("*************** Bienvenue dans votre systeme de gestion de Bibliotheque ***************");
-            System.out.println(");
+            System.out.println();
             System.out.println("Veuillez choisir une option :");
             System.out.println("1. Gestion des livres");
             System.out.println("2. Gestion des membres");
@@ -52,7 +52,7 @@ public class Main {
         while (true) {
             System.out.println("Gestion des livres :");
             System.out.println("1. Ajouter un livre");
-            System.out.println("2. Rechercher un livre par titre");
+            System.out.println("2. Rechercher un livre");
             System.out.println("3. Afficher tous les livres");
             System.out.println("0. Retour");
 
@@ -88,6 +88,56 @@ public class Main {
             }
         }
     }
+
+
+    public static void menuRechercheLivre(Scanner scanner, LivreDAO livreDAO) {
+        System.out.println("Choisissez le critère de recherche : ");
+        System.out.println("1. Par titre");
+        System.out.println("2. Par auteur");
+        System.out.println("3. Par ID");
+
+        int choixCritere = scanner.nextInt();
+        scanner.nextLine(); // Consommer la nouvelle ligne
+
+        String critere = null;
+        String valeurRecherche = null;
+        int idRecherche = 0;
+
+        switch (choixCritere) {
+            case 1:
+                critere = "titre";
+                System.out.println("Entrez le titre : ");
+                valeurRecherche = scanner.nextLine();
+                break;
+            case 2:
+                critere = "auteur";
+                System.out.println("Entrez l'auteur : ");
+                valeurRecherche = scanner.nextLine();
+                break;
+            case 3:
+                System.out.println("Entrez l'ID : ");
+                idRecherche = scanner.nextInt();
+                scanner.nextLine(); // Consommer la nouvelle ligne
+                Livre livre = livreDAO.rechercherLivreParId(idRecherche);
+                if (livre != null) {
+                    System.out.println(livre);
+                } else {
+                    System.out.println("Livre non trouvé.");
+                }
+                return;
+            default:
+                System.out.println("Choix invalide, retour au menu principal.");
+                return;
+        }
+
+        List<Livre> livres = livreDAO.rechercherLivre(critere, valeurRecherche);
+        if (!livres.isEmpty()) {
+            livres.forEach(System.out::println);
+        } else {
+            System.out.println("Aucun livre trouvé pour le critère spécifié.");
+        }
+    }
+
 
     public static void menuGestionMembres(Scanner scanner, MembreDAO membreDAO) {
         while (true) {

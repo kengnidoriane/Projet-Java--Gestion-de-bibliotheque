@@ -42,6 +42,49 @@ public class LivreDAO {
         return livres;
     }
 
+    public List<Livre> rechercherLivre(String critere, String valeur) {
+        String sql = "SELECT * FROM livres WHERE " + critere + " LIKE ?";
+        List<Livre> livres = new ArrayList<>();
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + valeur + "%");
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                livres.add(new Livre(
+                        rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getString("categorie"),
+                        rs.getInt("nombreExemplaires")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return livres;
+    }
+
+    public Livre rechercherLivreParId(int id) {
+        String sql = "SELECT * FROM livres WHERE id = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Livre(
+                        rs.getInt("id"),
+                        rs.getString("titre"),
+                        rs.getString("auteur"),
+                        rs.getString("categorie"),
+                        rs.getInt("nombreExemplaires")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     // Méthode pour afficher tous les livres
     public List<Livre> afficherTousLesLivres() {
         String sql = "SELECT * FROM livres";
