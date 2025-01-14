@@ -6,7 +6,7 @@ public class LivreDAO {
 
     // Méthode pour ajouter un livre
     public void ajouterLivre(Livre livre) {
-        String sql = "INSERT INTO livres (titre, auteur, categorie, nombreExemplaires) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO livres (titre, auteur, categorie, nombre_exemplaires) VALUES (?, ?, ?, ?)";
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, livre.getTitre());
@@ -33,7 +33,7 @@ public class LivreDAO {
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getString("categorie"),
-                        rs.getInt("nombreExemplaires")
+                        rs.getInt("nombre_exemplaires")
                 ));
             }
         } catch (SQLException e) {
@@ -45,7 +45,7 @@ public class LivreDAO {
     public List<Livre> rechercherLivre(String critere, String valeur) {
         String sql = "SELECT * FROM livres WHERE " + critere + " LIKE ?";
         List<Livre> livres = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, "%" + valeur + "%");
             ResultSet rs = pstmt.executeQuery();
@@ -55,7 +55,7 @@ public class LivreDAO {
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getString("categorie"),
-                        rs.getInt("nombreExemplaires")
+                        rs.getInt("nombre_exemplaires")
                 ));
             }
         } catch (SQLException e) {
@@ -66,7 +66,7 @@ public class LivreDAO {
 
     public Livre rechercherLivreParId(int id) {
         String sql = "SELECT * FROM livres WHERE id = ?";
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
@@ -76,7 +76,7 @@ public class LivreDAO {
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getString("categorie"),
-                        rs.getInt("nombreExemplaires")
+                        rs.getInt("nombre_exemplaires")
                 );
             }
         } catch (SQLException e) {
@@ -98,7 +98,7 @@ public class LivreDAO {
                         rs.getString("titre"),
                         rs.getString("auteur"),
                         rs.getString("categorie"),
-                        rs.getInt("nombreExemplaires")
+                        rs.getInt("nombre_exemplaires")
                 );
                 livres.add(livre);
             }
@@ -122,7 +122,7 @@ public class LivreDAO {
 
     // Méthode pour mettre à jour un livre
     public void mettreAJourLivre(Livre livre) {
-        String sql = "UPDATE livres SET titre = ?, auteur = ?, categorie = ?, nombreExemplaires = ? WHERE id = ?";
+        String sql = "UPDATE livres SET titre = ?, auteur = ?, categorie = ?, nombre_exemplaires = ? WHERE id = ?";
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, livre.getTitre());

@@ -20,7 +20,7 @@ public class EmpruntDAO {
 
     public void gererRetourLivre(int empruntId, LocalDate dateRetourEffective) {
         String sql = "UPDATE emprunts SET dateRetourEffective = ? WHERE idEmprunt = ?";
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setDate(1, Date.valueOf(dateRetourEffective));
             pstmt.setInt(2, empruntId);

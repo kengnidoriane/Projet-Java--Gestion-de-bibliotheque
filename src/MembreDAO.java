@@ -7,7 +7,7 @@ public class MembreDAO {
 
     public void inscrireMembre(Membre membre) {
         String sql = "INSERT INTO membres (nom, prenom, email, adhesionDate) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, membre.getNom());
             pstmt.setString(2, membre.getPrenom());
@@ -22,7 +22,7 @@ public class MembreDAO {
     public List<Membre> rechercherMembreParNom(String nom) {
         String sql = "SELECT * FROM membres WHERE nom LIKE ?";
         List<Membre> membres = new ArrayList<>();
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, "%" + nom + "%");
             ResultSet rs = pstmt.executeQuery();

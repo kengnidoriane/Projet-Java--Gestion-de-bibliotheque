@@ -59,11 +59,7 @@ public class Livre {
     }
 
     // Méthode pour afficher les détails du livre
-    public void afficherDetails() {
-        System.out.println("ID: " + id);
-        System.out.println("Titre: " + titre);
-        System.out.println("Auteur: " + auteur);
-        System.out.println("Categorie: " + categorie);
-        System.out.println("Nombre d'exemplaires: " + nombreExemplaires);
+    public String toString() {
+        return  "ID: " + id + ",Titre: " + titre + ", auteur: " + auteur + "categorie: " + categorie + ", nombreExemplaires: " + nombreExemplaires +" \n";
     }
 }

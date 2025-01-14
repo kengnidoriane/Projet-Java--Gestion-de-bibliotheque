@@ -73,13 +73,13 @@ public class Main {
                     livreDAO.ajouterLivre(new Livre(titre, auteur, categorie, nombreExemplaires));
                     break;
                 case 2:
-                    System.out.println("Titre : ");
-                    String titreRecherche = scanner.nextLine();
-                    livreDAO.rechercherLivreParTitre(titreRecherche).forEach(System.out::println);
+                    menuRechercheLivre(scanner, livreDAO);
                     break;
                 case 3:
                     List<Livre> livres = livreDAO.afficherTousLesLivres();
-                    livres.forEach(System.out::println);
+                    for (Livre livre : livres) {
+                        System.out.println(livre);
+                    };
                     break;
                 case 0:
                     return;
