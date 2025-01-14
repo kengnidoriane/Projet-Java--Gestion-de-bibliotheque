@@ -62,16 +62,19 @@ public class Emprunt {
         return 0;
     }
 
-    // Méthode pour afficher les détails de l'emprunt
-    public void afficherDetails() {
-        System.out.println("ID Emprunt: " + idEmprunt);
-        System.out.println("ID Membre: " + membreId);
-        System.out.println("ID Livre: " + livreId);
-        System.out.println("Date d'emprunt: " + dateEmprunt);
-        System.out.println("Date de retour prévue: " + dateRetourPrevue);
+    // Méthode toString pour afficher les détails de l'emprunt
+    @Override
+    public String toString() {
+        StringBuilder details = new StringBuilder();
+        details.append("ID Emprunt: ").append(idEmprunt).append("\n")
+                .append("ID Membre: ").append(membreId).append("\n")
+                .append("ID Livre: ").append(livreId).append("\n")
+                .append("Date d'emprunt: ").append(dateEmprunt).append("\n")
+                .append("Date de retour prévue: ").append(dateRetourPrevue).append("\n");
         if (dateRetourEffective != null) {
-            System.out.println("Date de retour effective: " + dateRetourEffective);
-            System.out.println("Pénalités: " + calculerPenalites() + " F CFA");
+            details.append("Date de retour effective: ").append(dateRetourEffective).append("\n")
+                    .append("Pénalités: ").append(calculerPenalites()).append(" F CFA");
         }
+        return details.toString();
     }
 }
