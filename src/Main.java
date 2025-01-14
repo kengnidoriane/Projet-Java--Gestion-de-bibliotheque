@@ -1,21 +1,60 @@
+import java.sql.SQLException;
 import java.util.Scanner;
 import java.time.LocalDate;
+import java.util.List;
 
-public class BibliothequeApp {
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         LivreDAO livreDAO = new LivreDAO();
         MembreDAO membreDAO = new MembreDAO();
         EmpruntDAO empruntDAO = new EmpruntDAO();
 
+        try (var connection = DB.connect()) {
+            System.out.println("Connected to database");
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+
         while (true) {
+            System.out.println("*************** Bienvenue dans votre systeme de gestion de Bibliotheque ***************");
+            System.out.println(");
+            System.out.println("Veuillez choisir une option :");
+            System.out.println("1. Gestion des livres");
+            System.out.println("2. Gestion des membres");
+            System.out.println("3. Gestion des emprunts");
+            System.out.println("0. Quitter");
+
+            int choixGestion = scanner.nextInt();
+            scanner.nextLine(); // Consommer la nouvelle ligne
+
+            switch (choixGestion) {
+                case 1:
+                    menuGestionLivres(scanner, livreDAO);
+                    break;
+                case 2:
+                    menuGestionMembres(scanner, membreDAO);
+                    break;
+                case 3:
+                    menuGestionEmprunts(scanner, empruntDAO);
+                    break;
+                case 0:
+                    System.out.println("Au revoir !");
+                    scanner.close();
+                    return;
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        }
+    }
+
+    public static void menuGestionLivres(Scanner scanner, LivreDAO livreDAO) {
+        while (true) {
+            System.out.println("Gestion des livres :");
             System.out.println("1. Ajouter un livre");
             System.out.println("2. Rechercher un livre par titre");
-            System.out.println("3. Inscrire un membre");
-            System.out.println("4. Rechercher un membre par nom");
-            System.out.println("5. Enregistrer un emprunt");
-            System.out.println("6. Gérer le retour d'un livre");
-            System.out.println("0. Quitter");
+            System.out.println("3. Afficher tous les livres");
+            System.out.println("0. Retour");
 
             int choix = scanner.nextInt();
             scanner.nextLine(); // Consommer la nouvelle ligne
@@ -39,6 +78,29 @@ public class BibliothequeApp {
                     livreDAO.rechercherLivreParTitre(titreRecherche).forEach(System.out::println);
                     break;
                 case 3:
+                    List<Livre> livres = livreDAO.afficherTousLesLivres();
+                    livres.forEach(System.out::println);
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        }
+    }
+
+    public static void menuGestionMembres(Scanner scanner, MembreDAO membreDAO) {
+        while (true) {
+            System.out.println("Gestion des membres :");
+            System.out.println("1. Inscrire un membre");
+            System.out.println("2. Rechercher un membre par nom");
+            System.out.println("0. Retour");
+
+            int choix = scanner.nextInt();
+            scanner.nextLine(); // Consommer la nouvelle ligne
+
+            switch (choix) {
+                case 1:
                     System.out.println("Nom : ");
                     String nom = scanner.nextLine();
                     System.out.println("Prénom : ");
@@ -49,12 +111,31 @@ public class BibliothequeApp {
                     String adhesionDate = scanner.nextLine();
                     membreDAO.inscrireMembre(new Membre(nom, prenom, email, LocalDate.parse(adhesionDate)));
                     break;
-                case 4:
+                case 2:
                     System.out.println("Nom : ");
                     String nomRecherche = scanner.nextLine();
                     membreDAO.rechercherMembreParNom(nomRecherche).forEach(System.out::println);
                     break;
-                case 5:
+                case 0:
+                    return;
+                default:
+                    System.out.println("Choix invalide, veuillez réessayer.");
+            }
+        }
+    }
+
+    public static void menuGestionEmprunts(Scanner scanner, EmpruntDAO empruntDAO) {
+        while (true) {
+            System.out.println("Gestion des emprunts :");
+            System.out.println("1. Enregistrer un emprunt");
+            System.out.println("2. Gérer le retour d'un livre");
+            System.out.println("0. Retour");
+
+            int choix = scanner.nextInt();
+            scanner.nextLine(); // Consommer la nouvelle ligne
+
+            switch (choix) {
+                case 1:
                     System.out.println("ID du membre : ");
                     int membreId = scanner.nextInt();
                     System.out.println("ID du livre : ");
@@ -65,7 +146,7 @@ public class BibliothequeApp {
                     String dateRetourPrevue = scanner.next();
                     empruntDAO.enregistrerEmprunt(new Emprunt(membreId, livreId, LocalDate.parse(dateEmprunt), LocalDate.parse(dateRetourPrevue)));
                     break;
-                case 6:
+                case 2:
                     System.out.println("ID de l'emprunt : ");
                     int empruntId = scanner.nextInt();
                     System.out.println("Date de retour effective (YYYY-MM-DD) : ");
@@ -73,8 +154,6 @@ public class BibliothequeApp {
                     empruntDAO.gererRetourLivre(empruntId, LocalDate.parse(dateRetourEffective));
                     break;
                 case 0:
-                    System.out.println("Au revoir !");
-                    scanner.close();
                     return;
                 default:
                     System.out.println("Choix invalide, veuillez réessayer.");

@@ -6,7 +6,7 @@ public class EmpruntDAO {
 
     public void enregistrerEmprunt(Emprunt emprunt) {
         String sql = "INSERT INTO emprunts (membreId, livreId, dateEmprunt, dateRetourPrevue) VALUES (?, ?, ?, ?)";
-        try (Connection conn = DBConnection.getConnection();
+        try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, emprunt.getMembreId());
             pstmt.setInt(2, emprunt.getLivreId());
