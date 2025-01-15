@@ -42,7 +42,7 @@ Pour exécuter ce projet, vous aurez besoin de :
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/votreutilisateur/systeme-gestion-bibliotheque.git
+   git clone https://github.com/kengnidoriane/Projet-Java--Gestion-de-bibliotheque.git
    ```
 2. Importez le projet dans votre IDE.
 3. Importez la base de données à partir d'un fichier SQL :
