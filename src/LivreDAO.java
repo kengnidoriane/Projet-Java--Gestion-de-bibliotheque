@@ -5,7 +5,7 @@ import java.util.List;
 public class LivreDAO {
 
     // Méthode pour ajouter un livre
-    public void ajouterLivre(Livre livre) {
+    public boolean ajouterLivre(Livre livre) {
         String sql = "INSERT INTO livres (titre, auteur, categorie, nombre_exemplaires) VALUES (?, ?, ?, ?)";
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -13,9 +13,11 @@ public class LivreDAO {
             pstmt.setString(2, livre.getAuteur());
             pstmt.setString(3, livre.getCategorie());
             pstmt.setInt(4, livre.getNombreExemplaires());
-            pstmt.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -125,19 +127,21 @@ public class LivreDAO {
     }
 
     // Méthode pour supprimer un livre par ID
-    public void supprimerLivre(int id) {
+    public boolean supprimerLivre(int id) {
         String sql = "DELETE FROM livres WHERE id = ?";
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, id);
-            pstmt.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 
     // Méthode pour mettre à jour un livre
-    public void mettreAJourLivre(Livre livre) {
+    public boolean mettreAJourLivre(Livre livre) {
         String sql = "UPDATE livres SET titre = ?, auteur = ?, categorie = ?, nombre_exemplaires = ? WHERE id = ?";
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -146,9 +150,11 @@ public class LivreDAO {
             pstmt.setString(3, livre.getCategorie());
             pstmt.setInt(4, livre.getNombreExemplaires());
             pstmt.setInt(5, livre.getId());
-            pstmt.executeUpdate();
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
     }
 }

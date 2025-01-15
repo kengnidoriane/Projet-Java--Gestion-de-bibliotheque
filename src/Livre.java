@@ -60,6 +60,6 @@ public class Livre {
 
     // Méthode pour afficher les détails du livre
     public String toString() {
-        return  "ID: " + id + ",Titre: " + titre + ", auteur: " + auteur + "categorie: " + categorie + ", nombreExemplaires: " + nombreExemplaires +" \n";
+        return  "ID: " + id + ",Titre: " + titre + ", auteur: " + auteur + ", categorie: " + categorie + ", nombreExemplaires: " + nombreExemplaires +" \n";
     }
 }

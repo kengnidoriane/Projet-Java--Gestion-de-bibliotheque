@@ -70,7 +70,13 @@ public class Main {
                     System.out.println("Nombre d'exemplaires : ");
                     int nombreExemplaires = scanner.nextInt();
                     scanner.nextLine(); // Consommer la nouvelle ligne
-                    livreDAO.ajouterLivre(new Livre(titre, auteur, categorie, nombreExemplaires));
+                    Livre livreAjoute = new Livre(titre, auteur, categorie, nombreExemplaires);
+                    livreDAO.ajouterLivre(livreAjoute);
+                    if (livreDAO.ajouterLivre(livreAjoute)) {
+                        System.out.println("Le livre a été ajouté avec succès !");
+                    } else {
+                        System.out.println("Échec de l'ajout du livre.");
+                    }
                     break;
                 case 2:
                     menuRechercheLivre(scanner, livreDAO);
