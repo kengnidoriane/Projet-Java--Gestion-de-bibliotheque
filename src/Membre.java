@@ -65,10 +65,10 @@ import java.time.LocalDate;
         @Override
         public String toString() {
             return "ID: " + id  +
-                    "Nom: " + nom + "\n" +
-                    "Prénom: " + prenom + "\n" +
-                    "Email: " + email + "\n" +
-                    "Date d'adhésion: " + adhesionDate;
+                    ", Nom: " + nom  +
+                    ", Prénom: " + prenom  +
+                    ", Email: " + email  +
+                    ", Date d'adhésion: " + adhesionDate + "\n";
         }
     }
 

@@ -241,6 +241,7 @@ public class Main {
             System.out.println("Gestion des emprunts :");
             System.out.println("1. Enregistrer un emprunt");
             System.out.println("2. Gérer le retour d'un livre");
+             System.out.println("3. Afficher les emprunts en cours");
             System.out.println("0. Retour");
 
             int choix = scanner.nextInt();
@@ -264,6 +265,14 @@ public class Main {
                     System.out.println("Date de retour effective (YYYY-MM-DD) : ");
                     String dateRetourEffective = scanner.next();
                     empruntDAO.gererRetourLivre(empruntId, LocalDate.parse(dateRetourEffective));
+                    break;
+                case 3:
+                    List<String> empruntsEnCours = empruntDAO.afficherEmpruntsEnCours();
+                    if (!empruntsEnCours.isEmpty()) {
+                        empruntsEnCours.forEach(System.out::println);
+                    } else {
+                        System.out.println("Aucun emprunt en cours.");
+                    }
                     break;
                 case 0:
                     return;

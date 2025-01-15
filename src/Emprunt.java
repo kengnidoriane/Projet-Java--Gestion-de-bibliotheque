@@ -15,14 +15,16 @@ public class Emprunt {
         this.livreId = livreId;
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
+        this.dateRetourEffective = dateRetourEffective;
     }
 
-    public Emprunt(int idEmprunt, int membreId, int livreId, LocalDate dateEmprunt, LocalDate dateRetourPrevue) {
+    public Emprunt(int idEmprunt, int membreId, int livreId, LocalDate dateEmprunt, LocalDate dateRetourPrevue, LocalDate dateRetourEffective) {
         this.idEmprunt = idEmprunt;
         this.membreId = membreId;
         this.livreId = livreId;
         this.dateEmprunt = dateEmprunt;
         this.dateRetourPrevue = dateRetourPrevue;
+        this.dateRetourEffective = dateRetourEffective;
     }
 
     // Getters et setters
