@@ -2,22 +2,32 @@
 
 Bienvenue dans le Système de Gestion de Bibliothèque ! Ce projet est une application Java conçue pour gérer efficacement les livres, les membres et les emprunts d'une bibliothèque. Le système offre des fonctionnalités telles que l'ajout et la recherche de livres, la gestion des informations des membres et la gestion des emprunts et des retours de livres.
 
+## Table des Matières
+
+- [Fonctionnalités](#fonctionnalités)
+- [Prérequis](#prérequis)
+- [Installation](#installation)
+- [Utilisation](#utilisation)
+- [Contribution](#contribution)
+- [Contact](#contact)
+
 ## Fonctionnalités
 
 - **Gestion des livres** :
-    - Ajouter de nouveaux livres à la bibliothèque.
-    - Rechercher des livres par titre, auteur ou ID (insensible à la casse).
-    - Afficher tous les livres.
-    - Mettre à jour ou supprimer des livres existants.
+  - Ajouter de nouveaux livres à la bibliothèque.
+  - Rechercher des livres par titre, auteur ou ID (insensible à la casse).
+  - Afficher tous les livres.
+  - Mettre à jour ou supprimer des livres existants.
 
 - **Gestion des membres** :
-    - Inscrire de nouveaux membres.
-    - Rechercher des membres par nom.
-    - Afficher tous les membres.
+  - Inscrire de nouveaux membres.
+  - Rechercher des membres par nom.
+  - Afficher tous les membres.
 
 - **Gestion des emprunts** :
-    - Enregistrer les emprunts de livres par les membres.
-    - Gérer le retour des livres empruntés.
+  - Enregistrer les emprunts de livres par les membres.
+  - Gérer le retour des livres empruntés.
+  - afficher les emprunts en cours.
 
 ## Prérequis
 
@@ -28,38 +38,6 @@ Pour exécuter ce projet, vous aurez besoin de :
 - Pilote JDBC pour PostgreSQL
 - Un IDE comme IntelliJ IDEA, Eclipse ou NetBeans (facultatif mais recommandé)
 
-## Configuration de la base de données
-
-1. Créez une nouvelle base de données pour le système de bibliothèque.
-2. Exécutez les commandes SQL suivantes pour créer les tables nécessaires :
-
-```sql
-CREATE TABLE livres (
-    id SERIAL PRIMARY KEY,
-    titre VARCHAR(255) NOT NULL,
-    auteur VARCHAR(255) NOT NULL,
-    categorie VARCHAR(255) NOT NULL,
-    nombre_exemplaires INT NOT NULL
-);
-
-CREATE TABLE membres (
-    id SERIAL PRIMARY KEY,
-    nom VARCHAR(255) NOT NULL,
-    prenom VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    date_adhesion DATE NOT NULL
-);
-
-CREATE TABLE emprunts (
-    id SERIAL PRIMARY KEY,
-    membre_id INT NOT NULL REFERENCES membres(id),
-    livre_id INT NOT NULL REFERENCES livres(id),
-    date_emprunt DATE NOT NULL,
-    date_retour_prevue DATE NOT NULL,
-    date_retour_effective DATE
-);
-```
-
 ## Installation
 
 1. Clonez le dépôt :
@@ -67,19 +45,20 @@ CREATE TABLE emprunts (
    git clone https://github.com/votreutilisateur/systeme-gestion-bibliotheque.git
    ```
 2. Importez le projet dans votre IDE.
-3. Configurez la connexion à la base de données dans la classe `DB.java` :
-   ```java
-   public class DB {
-       public static Connection connect() throws SQLException {
-           String url = "jdbc:postgresql://localhost:5432/votre_nom_de_base_de_donnees";
-           String user = "votre_nom_d_utilisateur";
-           String password = "votre_mot_de_passe";
-           return DriverManager.getConnection(url, user, password);
-       }
-   }
+3. Importez la base de données à partir d'un fichier SQL :
+  - Placez le fichier SQL dans un répertoire accessible.
+  - Exécutez la commande suivante dans le terminal :
+    ```bash
+    psql -U votre_utilisateur -d votre_base_de_donnees -f chemin/vers/fichier.sql
+    ```
+4. Configurez la connexion à la base de données dans le fichier `db.properties` :
+   ```properties
+   db.url=jdbc:postgresql://localhost:5432/votre_nom_de_base_de_donnees
+   db.username=votre_nom_utilisateur
+   db.password=votre_mot_de_passe
    ```
-
-4. Exécutez la classe `Main.java` pour démarrer l'application.
+   **NB** : Remplissez ces champs sans ajouter d'espaces ou d'autres caractères.
+5. Exécutez la classe `Main.java` pour démarrer l'application.
 
 ## Utilisation
 
@@ -95,18 +74,13 @@ CREATE TABLE emprunts (
 4. Poussez vos modifications sur votre fork.
 5. Ouvrez une pull request dans le dépôt original.
 
-[//]: # (## Licence)
-
-[//]: # ()
-[//]: # (Ce projet est sous licence MIT. Consultez le fichier `LICENSE` pour plus de détails.)
-
 ## Contact
 
 Pour toute question ou retour, veuillez contacter :
-
 
 - **GitHub** : [https://github.com/kengnidoriane](https://github.com/kengnidoriane)
 
 ---
 
 Merci d'utiliser le Système de Gestion de Bibliothèque !
+
