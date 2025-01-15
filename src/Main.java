@@ -54,6 +54,8 @@ public class Main {
             System.out.println("1. Ajouter un livre");
             System.out.println("2. Rechercher un livre");
             System.out.println("3. Afficher tous les livres");
+            System.out.println("4. Supprimer un livre donné");
+            System.out.println("5. Mettre à jour un livre");
             System.out.println("0. Retour");
 
             int choix = scanner.nextInt();
@@ -89,6 +91,38 @@ public class Main {
                     for (Livre livre : livres) {
                         System.out.println(livre);
                     };
+                    break;
+                case 4:
+                    System.out.println("Entrez l'ID du livre à supprimer : ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine(); // Consommer la nouvelle ligne
+                    if (livreDAO.supprimerLivre(id)) {
+                        System.out.println("Le livre a été supprimé avec succès !");
+                    } else {
+                        System.out.println("Échec de la suppression du livre.");
+                    }
+                    break;
+                case 5:
+                    System.out.println("Entrez l'ID du livre à mettre à jour : ");
+                    int idUpdate = scanner.nextInt();
+                    scanner.nextLine(); // Consommer la nouvelle ligne
+                    // Demander les nouvelles valeurs de titre, auteur, etc.
+                    System.out.println("Nouveau titre : ");
+                    String titreUpdate = scanner.nextLine();
+                    System.out.println("Nouvel auteur : ");
+                    String auteurUpdate = scanner.nextLine();
+                    System.out.println("Nouvelle catégorie : ");
+                    String categorieUpdate = scanner.nextLine();
+                    System.out.println("Nombre d'exemplaires : ");
+                    int nombreExemplairesUpdate = scanner.nextInt();
+                    scanner.nextLine(); // Consommer la nouvelle ligne
+
+                    Livre livre = new Livre(idUpdate, titreUpdate, auteurUpdate, categorieUpdate, nombreExemplairesUpdate);
+                    if (livreDAO.mettreAJourLivre(livre)) {
+                        System.out.println("Le livre a été mis à jour avec succès !");
+                    } else {
+                        System.out.println("Échec de la mise à jour du livre.");
+                    }
                     break;
                 case 0:
                     return;
