@@ -45,7 +45,7 @@ Pour exécuter ce projet, vous aurez besoin de :
    git clone https://github.com/kengnidoriane/systeme-gestion-bibliotheque.git
    ```
 2. Importez le projet dans votre IDE.
-3. Importez la base de données à partir d'un fichier SQL :
+3. Importez la base de données à partir d'un fichier SQL contenu dans le dossier ressources du repository :
   - Placez le fichier SQL dans un répertoire accessible.
   - Exécutez la commande suivante dans le terminal :
     ```bash
