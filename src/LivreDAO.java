@@ -21,7 +21,7 @@ public class LivreDAO {
 
     // Méthode pour rechercher un livre par titre
     public List<Livre> rechercherLivreParTitre(String titre) {
-        String sql = "SELECT * FROM livres WHERE titre LIKE ?";
+        String sql = "SELECT * FROM livres WHERE LOWER(titre) LIKE LOWER(?)";
         List<Livre> livres = new ArrayList<>();
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -43,7 +43,7 @@ public class LivreDAO {
     }
 
     public List<Livre> rechercherLivre(String critere, String valeur) {
-        String sql = "SELECT * FROM livres WHERE " + critere + " LIKE ?";
+        String sql = "SELECT * FROM livres WHERE  LOWER(" + critere + ") LIKE LOWER(?)";
         List<Livre> livres = new ArrayList<>();
         try (Connection conn = DB.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -84,6 +84,22 @@ public class LivreDAO {
         }
         return null;
     }
+
+//    methode pour compter le nombre de livres
+    public int compterLivres() {
+        String sql = "SELECT COUNT(*) FROM livres";
+        try (Connection conn = DB.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 
     // Méthode pour afficher tous les livres
     public List<Livre> afficherTousLesLivres() {
