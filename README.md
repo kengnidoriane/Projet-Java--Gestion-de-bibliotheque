@@ -42,10 +42,10 @@ Pour exécuter ce projet, vous aurez besoin de :
 
 1. Clonez le dépôt :
    ```bash
-   git clone https://github.com/votreutilisateur/systeme-gestion-bibliotheque.git
+   git clone https://github.com/kengnidoriane/systeme-gestion-bibliotheque.git
    ```
 2. Importez le projet dans votre IDE.
-3. Importez la base de données à partir d'un fichier SQL :
+3. Importez la base de données à partir du fichier SQL contenu dans le dossier ressources du projet :
   - Placez le fichier SQL dans un répertoire accessible.
   - Exécutez la commande suivante dans le terminal :
     ```bash
